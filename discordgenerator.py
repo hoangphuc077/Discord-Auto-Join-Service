@@ -30,7 +30,6 @@ from sys import stdout
 from src import UI
 from src import GmailnatorRead, GmailnatorGet, dfilter_email, pfilter_email, find_email_type
 from joinserver import join
-from gmailnatorverify import verify_by_me
 from random_username.generate import generate_username
 # from hcapbypass import bypass
 
@@ -73,7 +72,7 @@ class DiscordGen:
             options.add_argument('--proxy-server=%s' % proxy)
 
         # options.add_argument('--incognito')
-        options.add_argument('--profile-directory=Default')
+        # options.add_argument('--profile-directory=\"discordcreator\"')
 
 
         # self.driver = webdriver.Chrome(options=options, executable_path=r"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
@@ -107,9 +106,9 @@ class DiscordGen:
         time.sleep(2) # wait some time to finish
 
     def register(self):
-        # self.driver.delete_all_cookies()
+        self.driver.delete_all_cookies()
 
-        # self.delete_cache()
+        self.delete_cache()
 
         self.driver.get('https://discord.com/register')
 
@@ -162,6 +161,7 @@ class DiscordGen:
             actions.send_keys(Keys.ENTER)
 
             actions.send_keys(Keys.TAB) # Navigating to continue button
+            actions.pause(2)
 
 
             actions.send_keys(Keys.ENTER) # Creates the account
@@ -217,6 +217,7 @@ class DiscordGen:
 
     def verify_account(self,link):
         self.driver.get(link)
+        checker = input(f"{Fore.LIGHTMAGENTA_EX}[!]{Style.RESET_ALL} Have you solved the captcha? [y/n] > ")
         free_print(f"{Fore.LIGHTMAGENTA_EX}[!]{Style.RESET_ALL} Task complete")
 
     def close_driver(self):
@@ -344,6 +345,8 @@ def worker(proxy=None):
             # verify_link = start_verify(d, "co.n.nie.jus.t.ina.tdf@gmail.com", 'dot')
             if verify_link:
                 d.verify_account(verify_link)
+                join(token, 'rzynTzBE')
+
 
                 lock.acquire()
                 with open('output/login.txt', 'a', encoding='UTF-8') as login_file:
@@ -458,5 +461,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # join("OTU0NjU3ODg4MTg0NDY3NDU2.YjWUkw.9MEsS4d6yletz5LjZM0QvKG_qHM", 'rzynTzBE')
+    # join("OTU0NzcxMDg2MzEzMTYwNzM1.YjX9-A.gnWT320vvd1GUY_TsU6VM-0srUA", 'rzynTzBE')
 
