@@ -5,3 +5,4 @@ bs4
 lxml
 requests
 webdriver_manager
+random_username

@@ -76,8 +76,10 @@ class GmailnatorRead(Gmailnator):
     def get_single_message(self, msg_id):     
         email_name = self.__get_email_name()
         data= f'csrf_gmailnator_token={self.csrf_token}&action=get_message&message_id={msg_id}&email={email_name}' #176e703fdac43408 #pulltmp
+        print(data)
 
         r = self.s.post(self.BASE_URL + 'mailbox/get_single_message/', data=data, headers=self.HEADERS)
+        print(r)
 
         return r.json()['content']
 
