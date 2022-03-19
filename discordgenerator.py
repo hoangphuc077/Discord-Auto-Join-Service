@@ -1,6 +1,6 @@
 import undetected_chromedriver as uc
-uc.install()
-
+# uc.install()
+import json
 import os
 import time 
 import requests
@@ -12,6 +12,10 @@ import datetime
 import re
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -64,8 +68,16 @@ class DiscordGen:
         if proxy:
             options.add_argument('--proxy-server=%s' % proxy)
 
-        self.driver = webdriver.Chrome(options=options, executable_path=r"chromedriver.exe")
+        # self.driver = webdriver.Chrome(options=options, executable_path=r"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
 
+        # self.email= email
+        # self.username = username
+        # self.password = password
+
+        s=Service(ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=s)
+        self.driver.maximize_window()
+        
         self.email= email
         self.username = username
         self.password = password
@@ -232,7 +244,10 @@ def worker(proxy=None):
     free_print(f"{Fore.LIGHTMAGENTA_EX}[!]{Style.RESET_ALL} Scraping email. ")
 
     g = GmailnatorGet()
-    new_email = g.get_email()
+    new_email_object = g.get_email()
+    new_email_json = json.loads(new_email_object)
+
+    new_email = new_email_json['email']
     
     free_print(f"{Fore.LIGHTMAGENTA_EX}[*]{Style.RESET_ALL} Scraped {new_email}")
  
