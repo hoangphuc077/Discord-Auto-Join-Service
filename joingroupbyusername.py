@@ -45,7 +45,7 @@ def main():
     # options.add_argument('--incognito')
 
     # driver = webdriver.Chrome(ChromeDriverManager().install())
-    s=Service(ChromeDriverManager(version='99.0.4844.51').install())
+    s=Service(ChromeDriverManager().install())
     # s=Service(executable_path=r"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
     driver = webdriver.Chrome(options=options, service=s)
     driver.get('https://discord.com')
