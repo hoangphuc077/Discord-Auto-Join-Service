@@ -31,6 +31,10 @@ from src import UI
 from src import GmailnatorRead, GmailnatorGet, dfilter_email, pfilter_email, find_email_type
 from joinserver import join
 from random_username.generate import generate_username
+from fake_useragent import UserAgent
+import re, csv
+from random import uniform, randint
+from solvehcapcha import solve_capcha
 # from hcapbypass import bypass
 
 init(convert=True)
@@ -72,7 +76,12 @@ class DiscordGen:
             options.add_argument('--proxy-server=%s' % proxy)
 
         # options.add_argument('--incognito')
-        # options.add_argument('--profile-directory=\"discordcreator\"')
+        # options.add_argument('--profile-directory=Quest')
+        # ua = UserAgent()
+        # agent = ua.random
+
+
+        # options.add_argument("user-agent=%s" % agent)
 
 
         # self.driver = webdriver.Chrome(options=options, executable_path=r"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
@@ -83,7 +92,7 @@ class DiscordGen:
 
         s=Service(ChromeDriverManager().install())
         self.driver = webdriver.Chrome(options=options, service=s)
-        self.driver.maximize_window()
+        # self.driver.maximize_window()
         
         self.email= email
         self.username = username
@@ -105,6 +114,7 @@ class DiscordGen:
         actions.perform()
         time.sleep(2) # wait some time to finish
 
+            
     def register(self):
         self.driver.delete_all_cookies()
 
@@ -176,6 +186,8 @@ class DiscordGen:
             input(f"{Fore.LIGHTMAGENTA_EX}[!]{Style.RESET_ALL} Submit your form manually. Have you put the date? [y/n] > ") # Fixed typo
 
         free_print(f'{Fore.LIGHTMAGENTA_EX}[*]{Style.RESET_ALL} Submit form')
+        # solve_capcha(self.driver)
+        
 
 
         if dateWorking:
@@ -201,7 +213,6 @@ class DiscordGen:
             #input(f'{Fore.LIGHTMAGENTA_EX}[!]{Style.RESET_ALL} Press ENTER to create account.')
             self.driver.find_element_by_class_name('button-3k0cO7').click() # Submit button        
             free_print(f'{Fore.LIGHTMAGENTA_EX}[*]{Style.RESET_ALL} Submit form')
-
         while True:
             lock.acquire()
             checker = input(f"{Fore.LIGHTMAGENTA_EX}[!]{Style.RESET_ALL} Have you solved the captcha and submit? [y/n] > ")
@@ -323,10 +334,11 @@ def worker(proxy=None):
         lines = username_txt.readlines()
         for line in lines:
             discord_usernames.append(line.replace('\n', ''))
-    usernames = generate_username(1)
+    # usernames = generate_username(1)
     # print(username[0])
-    # username = random.choice(discord_usernames)
-    username = usernames[0]
+    # username = usernames[0]
+    
+    username = random.choice(discord_usernames)
     password = password_gen()
 
 
